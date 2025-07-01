@@ -122,3 +122,7 @@
     @apply bg-background text-foreground;
     }
 }
+.required::after {
+    content: " *";
+    color: rgb(239 68 68);
+}

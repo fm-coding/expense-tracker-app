@@ -18,7 +18,11 @@ public class JwtUtil {
     private String jwtSecret;
 
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+        if (keyBytes.length < 32) {
+            throw new IllegalArgumentException("JWT secret key must be at least 32 characters long for HS256");
+        }
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public boolean validateToken(String authToken) {
@@ -35,22 +39,35 @@ public class JwtUtil {
     }
 
     public Long getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .verifyWith(getSigningKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
 
-        return Long.parseLong(claims.getSubject());
+            // Get userId from claims, not from subject
+            // The subject contains the email
+            return claims.get("userId", Long.class);
+        } catch (Exception e) {
+            log.error("Error extracting userId from token: {}", e.getMessage());
+            throw new IllegalArgumentException("Could not extract userId from token", e);
+        }
     }
 
     public String getEmailFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .verifyWith(getSigningKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
 
-        return claims.get("email", String.class);
+            // The subject contains the email
+            return claims.getSubject();
+        } catch (Exception e) {
+            log.error("Error extracting email from token: {}", e.getMessage());
+            throw new IllegalArgumentException("Could not extract email from token", e);
+        }
     }
 }

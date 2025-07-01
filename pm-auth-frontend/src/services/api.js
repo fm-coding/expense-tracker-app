@@ -1,68 +1,80 @@
 import axios from 'axios';
 
-// Update to use the correct auth service port
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8084/api/v1';
-
-const api = axios.create({
-    baseURL: API_URL,
+// Create separate instances for different services
+const authAPI = axios.create({
+    baseURL: import.meta.env.VITE_AUTH_API_URL || 'http://localhost:8084/api/v1',
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-// Request interceptor to add auth token
-api.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem('accessToken');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        console.log('Making request to:', config.url);
-        return config;
+const expenseAPI = axios.create({
+    baseURL: import.meta.env.VITE_EXPENSE_API_URL || 'http://localhost:8083/api/v1',
+    headers: {
+        'Content-Type': 'application/json',
     },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
+});
 
-// Response interceptor to handle token refresh
-api.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    async (error) => {
-        console.error('API Error:', error.response?.status, error.response?.data);
-        const originalRequest = error.config;
-
-        if (error.response?.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
-
-            try {
-                const refreshToken = localStorage.getItem('refreshToken');
-                if (refreshToken) {
-                    const response = await axios.post(`${API_URL}/auth/refresh-token`, {
-                        refreshToken: refreshToken
-                    });
-
-                    const { accessToken } = response.data;
-                    localStorage.setItem('accessToken', accessToken);
-
-                    // Retry original request with new token
-                    originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-                    return api(originalRequest);
-                }
-            } catch (refreshError) {
-                // Refresh failed, logout user
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
-                localStorage.removeItem('user');
-                window.location.href = '/login';
-                return Promise.reject(refreshError);
+// Add auth token to both instances
+const addAuthInterceptor = (axiosInstance) => {
+    axiosInstance.interceptors.request.use(
+        (config) => {
+            const token = localStorage.getItem('accessToken');
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
             }
+            console.log('Making request to:', config.url);
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
         }
+    );
 
-        return Promise.reject(error);
-    }
-);
+    axiosInstance.interceptors.response.use(
+        (response) => {
+            return response;
+        },
+        async (error) => {
+            console.error('API Error:', error.response?.status, error.response?.data);
+            const originalRequest = error.config;
 
-export default api;
+            if (error.response?.status === 401 && !originalRequest._retry) {
+                originalRequest._retry = true;
+
+                try {
+                    const refreshToken = localStorage.getItem('refreshToken');
+                    if (refreshToken) {
+                        const response = await authAPI.post('/auth/refresh-token', {
+                            refreshToken: refreshToken
+                        });
+
+                        const { accessToken } = response.data;
+                        localStorage.setItem('accessToken', accessToken);
+
+                        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+                        return axiosInstance(originalRequest);
+                    }
+                } catch (refreshError) {
+                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('refreshToken');
+                    localStorage.removeItem('user');
+                    window.location.href = '/login';
+                    return Promise.reject(refreshError);
+                }
+            }
+
+            return Promise.reject(error);
+        }
+    );
+};
+
+// Apply interceptors
+addAuthInterceptor(authAPI);
+addAuthInterceptor(expenseAPI);
+
+// Default export for auth (backward compatibility)
+export default authAPI;
+
+// Named exports for specific services
+export { authAPI, expenseAPI };

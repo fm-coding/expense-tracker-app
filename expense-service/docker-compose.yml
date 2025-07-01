@@ -38,11 +38,12 @@ services:
       DB_PASSWORD: 4422
       MAIL_USERNAME: ${MAIL_USERNAME}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
-      JWT_SECRET: ${JWT_SECRET}
+      JWT_SECRET: MyVerySecureSecretKeyThatIsAtLeast64CharactersLongForHS512AlgorithmSecurity123456789
       FRONTEND_URL: http://localhost:3000
       SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8084
     ports:
-      - "8082:8082"
+      - "8084:8084"
     networks:
       - pm-network
 
@@ -62,9 +63,10 @@ services:
       DB_NAME: pm_expense_db
       DB_USERNAME: postgres
       DB_PASSWORD: 4422
-      JWT_SECRET: ${JWT_SECRET}
-      AUTH_SERVICE_URL: http://auth-service:8082
+      JWT_SECRET: MyVerySecureSecretKeyThatIsAtLeast64CharactersLongForHS512AlgorithmSecurity123456789
+      AUTH_SERVICE_URL: http://auth-service:8084
       SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8083
     ports:
       - "8083:8083"
     networks:
