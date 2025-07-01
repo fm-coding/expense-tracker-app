@@ -1,0 +1,2568 @@
+2025-06-23 11:32:38 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 19141 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 11:32:38 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 11:32:38 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 11:32:38 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 11:32:38 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 11:32:40 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 11:32:40 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 1 JPA repository interface.
+2025-06-23 11:32:40 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 11:32:42 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 11:32:42 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 11:32:42 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 11:32:42 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 11:32:42 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3567 ms
+2025-06-23 11:32:42 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 11:32:42 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 11:32:42 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 11:32:43 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 11:32:43 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 11:32:44 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 11:32:44 [restartedMain] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 11:32:44 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 11:32:44 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5090f62d
+2025-06-23 11:32:44 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 11:32:44 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-06-23 11:32:44 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2025-06-23 11:32:44 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table users (
+        failed_login_attempts integer not null,
+        is_account_non_expired boolean not null,
+        is_account_non_locked boolean not null,
+        is_credentials_non_expired boolean not null,
+        is_enabled boolean not null,
+        created_at timestamp(6) not null,
+        id bigserial not null,
+        last_login_at timestamp(6),
+        lock_time timestamp(6),
+        password_reset_token_expiry timestamp(6),
+        updated_at timestamp(6) not null,
+        verification_token_expiry timestamp(6),
+        first_name varchar(100) not null,
+        last_name varchar(100) not null,
+        email varchar(255) not null unique,
+        password varchar(255) not null,
+        password_reset_token varchar(255),
+        verification_token varchar(255),
+        primary key (id)
+    )
+2025-06-23 11:32:44 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_email 
+       on users (email)
+2025-06-23 11:32:44 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_verification_token 
+       on users (verification_token)
+2025-06-23 11:32:44 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 11:32:45 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 11:32:45 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 11:32:47 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 11:32:47 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6571f6a9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@626f0107, org.springframework.security.web.context.SecurityContextHolderFilter@8eeb144, org.springframework.security.web.header.HeaderWriterFilter@3cc907d3, org.springframework.web.filter.CorsFilter@47113a42, org.springframework.security.web.authentication.logout.LogoutFilter@1f1398af, com.pm.authservice.security.JwtAuthenticationFilter@35932f7a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6143084f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3b41dff6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5ea7eb2c, org.springframework.security.web.session.SessionManagementFilter@41720b90, org.springframework.security.web.access.ExceptionTranslationFilter@2ac39a2a, org.springframework.security.web.access.intercept.AuthorizationFilter@5ea9a186]
+2025-06-23 11:32:48 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 11:32:48 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 11:32:48 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 11.929 seconds (process running for 13.988)
+2025-06-23 11:32:48 [RMI TCP Connection(4)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 11:32:48 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 11:32:48 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-06-23 11:35:38 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 11:35:38 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 11:35:38 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 11:35:38 [http-nio-8082-exec-2] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/v1/auth/register' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-06-23 11:35:38 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 11:35:38 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: ashakur.js24@gmail.com
+2025-06-23 11:35:39 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 11:35:39 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (created_at, email, failed_login_attempts, first_name, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, last_login_at, last_name, lock_time, password, password_reset_token, password_reset_token_expiry, updated_at, verification_token, verification_token_expiry) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-06-23 11:35:39 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - User registered successfully with email: ashakur.js24@gmail.com
+2025-06-23 11:35:43 [Email-1] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: ashakur.js24@gmail.com
+2025-06-23 11:35:43 [Email-1] INFO  c.p.authservice.service.EmailService - 📧 Verification email sent to: ashakur.js24@gmail.com
+2025-06-23 11:35:43 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Backend Verification URL: http://localhost:8082/api/v1/auth/verify-email/a955d74d-7d68-46c6-b2fd-1c659a1d21ff
+2025-06-23 11:35:43 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Frontend Redirect URL: http://localhost:3000/login?verified=true
+2025-06-23 11:36:39 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/auth/verify-email/a955d74d-7d68-46c6-b2fd-1c659a1d21ff
+2025-06-23 11:36:39 [http-nio-8082-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 11:36:39 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/auth/verify-email/a955d74d-7d68-46c6-b2fd-1c659a1d21ff
+2025-06-23 11:36:39 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Attempting to verify email with token: a955d74d-7d68-46c6-b2fd-1c659a1d21ff
+2025-06-23 11:36:39 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.verification_token=?
+2025-06-23 11:36:39 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Email verified successfully for user: ashakur.js24@gmail.com
+2025-06-23 11:36:39 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 11:36:39 [http-nio-8082-exec-3] INFO  c.p.a.controller.AuthController - ✅ Email verification successful for token: a955d74d-7d68-46c6-b2fd-1c659a1d21ff
+2025-06-23 11:36:43 [Email-2] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: ashakur.js24@gmail.com
+2025-06-23 11:36:43 [Email-2] INFO  c.p.authservice.service.EmailService - 🎉 Welcome email sent to: ashakur.js24@gmail.com
+2025-06-23 11:37:03 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 11:37:03 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 11:37:03 [http-nio-8082-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 11:37:03 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 11:37:03 [http-nio-8082-exec-6] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: ashakur.js24@gmail.com
+2025-06-23 11:37:03 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 11:37:03 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 11:37:04 [http-nio-8082-exec-6] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 11:37:04 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 11:37:04 [http-nio-8082-exec-6] INFO  c.pm.authservice.service.AuthService - User logged in successfully: ashakur.js24@gmail.com
+2025-06-23 12:03:23 [http-nio-8082-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 12:03:23 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 12:03:23 [http-nio-8082-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 12:03:23 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 12:03:23 [http-nio-8082-exec-1] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: ashakur.js24@gmail.com
+2025-06-23 12:03:23 [http-nio-8082-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 12:03:23 [http-nio-8082-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 12:03:23 [http-nio-8082-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 12:03:23 [http-nio-8082-exec-1] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 12:03:23 [http-nio-8082-exec-1] INFO  c.pm.authservice.service.AuthService - User logged in successfully: ashakur.js24@gmail.com
+2025-06-23 12:03:28 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 12:03:28 [SpringApplicationShutdownHook] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 12:03:28 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 12:03:28 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-23 12:14:40 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 21499 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 12:14:40 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 12:14:40 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 12:14:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 12:14:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 12:14:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 12:14:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 1 JPA repository interface.
+2025-06-23 12:14:42 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 12:14:43 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 12:14:43 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 12:14:43 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 12:14:43 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 12:14:43 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2884 ms
+2025-06-23 12:14:43 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 12:14:44 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 12:14:44 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 12:14:44 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 12:14:44 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 12:14:45 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 12:14:45 [restartedMain] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 12:14:45 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 12:14:45 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@40ed4f0d
+2025-06-23 12:14:45 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 12:14:45 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-06-23 12:14:45 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2025-06-23 12:14:45 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table users (
+        failed_login_attempts integer not null,
+        is_account_non_expired boolean not null,
+        is_account_non_locked boolean not null,
+        is_credentials_non_expired boolean not null,
+        is_enabled boolean not null,
+        created_at timestamp(6) not null,
+        id bigserial not null,
+        last_login_at timestamp(6),
+        lock_time timestamp(6),
+        password_reset_token_expiry timestamp(6),
+        updated_at timestamp(6) not null,
+        verification_token_expiry timestamp(6),
+        first_name varchar(100) not null,
+        last_name varchar(100) not null,
+        email varchar(255) not null unique,
+        password varchar(255) not null,
+        password_reset_token varchar(255),
+        verification_token varchar(255),
+        primary key (id)
+    )
+2025-06-23 12:14:45 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_email 
+       on users (email)
+2025-06-23 12:14:45 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_verification_token 
+       on users (verification_token)
+2025-06-23 12:14:45 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 12:14:46 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 12:14:46 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 12:14:48 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 12:14:48 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3edfab7d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@18387b86, org.springframework.security.web.context.SecurityContextHolderFilter@1e8d69ac, org.springframework.security.web.header.HeaderWriterFilter@3ebad46f, org.springframework.web.filter.CorsFilter@551b3abc, org.springframework.security.web.authentication.logout.LogoutFilter@731f8600, com.pm.authservice.security.JwtAuthenticationFilter@6c4f722d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e093189, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@a1e91c2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@80295ef, org.springframework.security.web.session.SessionManagementFilter@4a284597, org.springframework.security.web.access.ExceptionTranslationFilter@43bf7019, org.springframework.security.web.access.intercept.AuthorizationFilter@619b435a]
+2025-06-23 12:14:49 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 12:14:49 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 12:14:49 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 10.558 seconds (process running for 12.064)
+2025-06-23 12:14:49 [RMI TCP Connection(3)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 12:14:49 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 12:14:49 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2025-06-23 12:15:12 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 12:15:12 [SpringApplicationShutdownHook] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 12:15:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 12:15:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-23 14:31:38 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 25062 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 14:31:38 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 14:31:38 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 14:31:38 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 14:31:38 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 14:31:39 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 14:31:39 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 66 ms. Found 1 JPA repository interface.
+2025-06-23 14:31:40 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 14:31:41 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 14:31:41 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 14:31:41 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 14:31:41 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 14:31:41 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2929 ms
+2025-06-23 14:31:41 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 14:31:41 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 14:31:41 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 14:31:41 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 14:31:42 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 14:31:42 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 14:31:42 [restartedMain] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 14:31:42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 14:31:43 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6ae59415
+2025-06-23 14:31:43 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 14:31:43 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-06-23 14:31:43 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2025-06-23 14:31:43 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table users (
+        failed_login_attempts integer not null,
+        is_account_non_expired boolean not null,
+        is_account_non_locked boolean not null,
+        is_credentials_non_expired boolean not null,
+        is_enabled boolean not null,
+        created_at timestamp(6) not null,
+        id bigserial not null,
+        last_login_at timestamp(6),
+        lock_time timestamp(6),
+        password_reset_token_expiry timestamp(6),
+        updated_at timestamp(6) not null,
+        verification_token_expiry timestamp(6),
+        first_name varchar(100) not null,
+        last_name varchar(100) not null,
+        email varchar(255) not null unique,
+        password varchar(255) not null,
+        password_reset_token varchar(255),
+        verification_token varchar(255),
+        primary key (id)
+    )
+2025-06-23 14:31:43 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_email 
+       on users (email)
+2025-06-23 14:31:43 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_verification_token 
+       on users (verification_token)
+2025-06-23 14:31:43 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 14:31:43 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 14:31:44 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 14:31:45 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 14:31:46 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@414251e9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5afcf047, org.springframework.security.web.context.SecurityContextHolderFilter@49190197, org.springframework.security.web.header.HeaderWriterFilter@4ffb5362, org.springframework.web.filter.CorsFilter@253a8932, org.springframework.security.web.authentication.logout.LogoutFilter@7d85d2bc, com.pm.authservice.security.JwtAuthenticationFilter@52f19d26, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1ad1b4ff, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@44cbb4f9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@34061a37, org.springframework.security.web.session.SessionManagementFilter@3343d5c4, org.springframework.security.web.access.ExceptionTranslationFilter@497a97a2, org.springframework.security.web.access.intercept.AuthorizationFilter@30490a51]
+2025-06-23 14:31:46 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 14:31:47 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 14:31:47 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 10.889 seconds (process running for 12.04)
+2025-06-23 14:31:47 [RMI TCP Connection(3)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 14:31:47 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 14:31:47 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2025-06-23 14:33:44 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 14:33:44 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 14:33:44 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:33:44 [http-nio-8082-exec-2] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/v1/auth/login' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-06-23 14:33:44 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 14:33:44 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: ashakur.js24@gmail.com
+2025-06-23 14:33:44 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:33:44 [http-nio-8082-exec-2] ERROR c.p.a.e.GlobalExceptionHandler - Authentication exception: Invalid email or password
+2025-06-23 14:33:44 [http-nio-8082-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2025-06-23 14:34:08 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 14:34:08 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 14:34:08 [http-nio-8082-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:34:08 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 14:34:08 [http-nio-8082-exec-4] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: fn3233000@gmail.com
+2025-06-23 14:34:08 [http-nio-8082-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 14:34:09 [http-nio-8082-exec-4] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (created_at, email, failed_login_attempts, first_name, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, last_login_at, last_name, lock_time, password, password_reset_token, password_reset_token_expiry, updated_at, verification_token, verification_token_expiry) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-06-23 14:34:09 [http-nio-8082-exec-4] INFO  c.pm.authservice.service.AuthService - User registered successfully with email: fn3233000@gmail.com
+2025-06-23 14:34:13 [Email-1] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fn3233000@gmail.com
+2025-06-23 14:34:13 [Email-1] INFO  c.p.authservice.service.EmailService - 📧 Verification email sent to: fn3233000@gmail.com
+2025-06-23 14:34:13 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Backend Verification URL: http://localhost:8082/api/v1/auth/verify-email/ab919deb-cd99-4222-a8a7-d8b657573b26
+2025-06-23 14:34:13 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Frontend Redirect URL: http://localhost:3000/login?verified=true
+2025-06-23 14:34:49 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 14:34:49 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 14:34:49 [http-nio-8082-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:34:49 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 14:34:49 [http-nio-8082-exec-6] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 14:34:49 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:34:49 [http-nio-8082-exec-6] ERROR c.p.a.e.GlobalExceptionHandler - Authentication exception: Invalid email or password
+2025-06-23 14:34:49 [http-nio-8082-exec-6] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2025-06-23 14:35:16 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 14:35:16 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 14:35:16 [http-nio-8082-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:35:16 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 14:35:16 [http-nio-8082-exec-8] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: fm3233000@gmail.com
+2025-06-23 14:35:16 [http-nio-8082-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 14:35:17 [http-nio-8082-exec-8] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (created_at, email, failed_login_attempts, first_name, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, last_login_at, last_name, lock_time, password, password_reset_token, password_reset_token_expiry, updated_at, verification_token, verification_token_expiry) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-06-23 14:35:17 [http-nio-8082-exec-8] INFO  c.pm.authservice.service.AuthService - User registered successfully with email: fm3233000@gmail.com
+2025-06-23 14:35:20 [Email-2] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fm3233000@gmail.com
+2025-06-23 14:35:20 [Email-2] INFO  c.p.authservice.service.EmailService - 📧 Verification email sent to: fm3233000@gmail.com
+2025-06-23 14:35:20 [Email-2] INFO  c.p.authservice.service.EmailService - 🔗 Backend Verification URL: http://localhost:8082/api/v1/auth/verify-email/8c1976d6-3479-42a8-bf16-bb2e3de72e13
+2025-06-23 14:35:20 [Email-2] INFO  c.p.authservice.service.EmailService - 🔗 Frontend Redirect URL: http://localhost:3000/login?verified=true
+2025-06-23 14:35:28 [http-nio-8082-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/auth/verify-email/8c1976d6-3479-42a8-bf16-bb2e3de72e13
+2025-06-23 14:35:28 [http-nio-8082-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:35:28 [http-nio-8082-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/auth/verify-email/8c1976d6-3479-42a8-bf16-bb2e3de72e13
+2025-06-23 14:35:28 [http-nio-8082-exec-9] INFO  c.pm.authservice.service.AuthService - Attempting to verify email with token: 8c1976d6-3479-42a8-bf16-bb2e3de72e13
+2025-06-23 14:35:28 [http-nio-8082-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.verification_token=?
+2025-06-23 14:35:28 [http-nio-8082-exec-9] INFO  c.pm.authservice.service.AuthService - Email verified successfully for user: fm3233000@gmail.com
+2025-06-23 14:35:28 [http-nio-8082-exec-9] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 14:35:28 [http-nio-8082-exec-9] INFO  c.p.a.controller.AuthController - ✅ Email verification successful for token: 8c1976d6-3479-42a8-bf16-bb2e3de72e13
+2025-06-23 14:35:31 [Email-1] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fm3233000@gmail.com
+2025-06-23 14:35:31 [Email-1] INFO  c.p.authservice.service.EmailService - 🎉 Welcome email sent to: fm3233000@gmail.com
+2025-06-23 14:35:35 [http-nio-8082-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 14:35:35 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 14:35:35 [http-nio-8082-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:35:35 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 14:35:35 [http-nio-8082-exec-1] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 14:35:35 [http-nio-8082-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:35:36 [http-nio-8082-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:35:36 [http-nio-8082-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 14:35:36 [http-nio-8082-exec-1] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 14:35:37 [http-nio-8082-exec-1] INFO  c.pm.authservice.service.AuthService - User logged in successfully: fm3233000@gmail.com
+2025-06-23 14:35:44 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/forgot-password
+2025-06-23 14:35:44 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/forgot-password
+2025-06-23 14:35:44 [http-nio-8082-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:35:44 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/forgot-password
+2025-06-23 14:35:44 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Processing forgot password request for email: fm3233000@gmail.com
+2025-06-23 14:35:44 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:35:44 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Password reset token generated and email sent for user: fm3233000@gmail.com
+2025-06-23 14:35:44 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 14:35:44 [http-nio-8082-exec-3] INFO  c.p.a.controller.AuthController - 🔐 Password reset email sent for: fm3233000@gmail.com
+2025-06-23 14:35:47 [Email-2] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fm3233000@gmail.com
+2025-06-23 14:35:47 [Email-2] INFO  c.p.authservice.service.EmailService - 🔐 Password reset email sent to: fm3233000@gmail.com
+2025-06-23 14:35:47 [Email-2] INFO  c.p.authservice.service.EmailService - 🔗 Reset URL: http://localhost:3000/reset-password?token=de4e65ec-8c03-4336-93ed-845574802d0a
+2025-06-23 14:36:15 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/reset-password/de4e65ec-8c03-4336-93ed-845574802d0a
+2025-06-23 14:36:15 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/reset-password/de4e65ec-8c03-4336-93ed-845574802d0a
+2025-06-23 14:36:15 [http-nio-8082-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:36:15 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/reset-password/de4e65ec-8c03-4336-93ed-845574802d0a
+2025-06-23 14:36:15 [http-nio-8082-exec-5] INFO  c.pm.authservice.service.AuthService - Attempting password reset with token: de4e65ec-8c03-4336-93ed-845574802d0a
+2025-06-23 14:36:15 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.password_reset_token=?
+2025-06-23 14:36:16 [http-nio-8082-exec-5] INFO  c.pm.authservice.service.AuthService - Password reset successful for user: fm3233000@gmail.com
+2025-06-23 14:36:16 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 14:36:16 [http-nio-8082-exec-5] INFO  c.p.a.controller.AuthController - ✅ Password reset successful for token: de4e65ec-8c03-4336-93ed-845574802d0a
+2025-06-23 14:36:26 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 14:36:26 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 14:36:26 [http-nio-8082-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:36:26 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 14:36:26 [http-nio-8082-exec-8] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 14:36:26 [http-nio-8082-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:36:26 [http-nio-8082-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:36:27 [http-nio-8082-exec-8] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Failed to authenticate since password does not match stored value
+2025-06-23 14:36:27 [http-nio-8082-exec-8] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=?,
+        lock_time=? 
+    where
+        email=?
+2025-06-23 14:36:27 [http-nio-8082-exec-8] ERROR c.p.a.e.GlobalExceptionHandler - Authentication exception: Invalid email or password
+2025-06-23 14:36:27 [http-nio-8082-exec-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2025-06-23 14:36:29 [http-nio-8082-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 14:36:29 [http-nio-8082-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:36:29 [http-nio-8082-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 14:36:29 [http-nio-8082-exec-10] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 14:36:29 [http-nio-8082-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:36:29 [http-nio-8082-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:36:30 [http-nio-8082-exec-10] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 14:36:30 [http-nio-8082-exec-10] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 14:36:30 [http-nio-8082-exec-10] INFO  c.pm.authservice.service.AuthService - User logged in successfully: fm3233000@gmail.com
+2025-06-23 14:36:46 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/forgot-password
+2025-06-23 14:36:46 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/forgot-password
+2025-06-23 14:36:46 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:36:46 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/forgot-password
+2025-06-23 14:36:46 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Processing forgot password request for email: fm3233000@gmail.com
+2025-06-23 14:36:46 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:36:46 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Password reset token generated and email sent for user: fm3233000@gmail.com
+2025-06-23 14:36:46 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 14:36:46 [http-nio-8082-exec-2] INFO  c.p.a.controller.AuthController - 🔐 Password reset email sent for: fm3233000@gmail.com
+2025-06-23 14:36:49 [Email-1] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fm3233000@gmail.com
+2025-06-23 14:36:49 [Email-1] INFO  c.p.authservice.service.EmailService - 🔐 Password reset email sent to: fm3233000@gmail.com
+2025-06-23 14:36:49 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Reset URL: http://localhost:3000/reset-password?token=51e80181-1972-4e05-a4d5-da13f927ddfb
+2025-06-23 14:37:30 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/reset-password/51e80181-1972-4e05-a4d5-da13f927ddfb
+2025-06-23 14:37:30 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/reset-password/51e80181-1972-4e05-a4d5-da13f927ddfb
+2025-06-23 14:37:30 [http-nio-8082-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:37:30 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/reset-password/51e80181-1972-4e05-a4d5-da13f927ddfb
+2025-06-23 14:37:30 [http-nio-8082-exec-4] INFO  c.pm.authservice.service.AuthService - Attempting password reset with token: 51e80181-1972-4e05-a4d5-da13f927ddfb
+2025-06-23 14:37:30 [http-nio-8082-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.password_reset_token=?
+2025-06-23 14:37:31 [http-nio-8082-exec-4] INFO  c.pm.authservice.service.AuthService - Password reset successful for user: fm3233000@gmail.com
+2025-06-23 14:37:31 [http-nio-8082-exec-4] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 14:37:31 [http-nio-8082-exec-4] INFO  c.p.a.controller.AuthController - ✅ Password reset successful for token: 51e80181-1972-4e05-a4d5-da13f927ddfb
+2025-06-23 14:38:28 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 14:38:28 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 14:38:28 [http-nio-8082-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 14:38:28 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 14:38:28 [http-nio-8082-exec-7] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 14:38:28 [http-nio-8082-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:38:28 [http-nio-8082-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:38:28 [http-nio-8082-exec-7] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 14:38:28 [http-nio-8082-exec-7] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 14:38:28 [http-nio-8082-exec-7] INFO  c.pm.authservice.service.AuthService - User logged in successfully: fm3233000@gmail.com
+2025-06-23 14:53:03 [http-nio-8082-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 14:53:03 [http-nio-8082-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 14:53:03 [http-nio-8082-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:53:03 [http-nio-8082-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 14:53:03 [http-nio-8082-exec-10] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 14:53:03 [http-nio-8082-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:53:03 [http-nio-8082-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 14:53:03 [http-nio-8082-exec-10] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 14:53:03 [http-nio-8082-exec-10] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 14:53:03 [http-nio-8082-exec-10] INFO  c.pm.authservice.service.AuthService - User logged in successfully: fm3233000@gmail.com
+2025-06-23 14:53:24 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 14:53:24 [SpringApplicationShutdownHook] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 14:53:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 14:53:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-23 15:16:34 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 26780 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 15:16:34 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 15:16:34 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 15:16:34 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 15:16:34 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 15:16:35 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 15:16:35 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 1 JPA repository interface.
+2025-06-23 15:16:36 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 15:16:37 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 15:16:37 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 15:16:37 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 15:16:37 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 15:16:37 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2814 ms
+2025-06-23 15:16:37 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 15:16:37 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 15:16:37 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 15:16:38 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 15:16:38 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 15:16:38 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 15:16:39 [restartedMain] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 15:16:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 15:16:39 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@9c9a22e
+2025-06-23 15:16:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 15:16:39 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-06-23 15:16:39 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2025-06-23 15:16:39 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table users (
+        failed_login_attempts integer not null,
+        is_account_non_expired boolean not null,
+        is_account_non_locked boolean not null,
+        is_credentials_non_expired boolean not null,
+        is_enabled boolean not null,
+        created_at timestamp(6) not null,
+        id bigserial not null,
+        last_login_at timestamp(6),
+        lock_time timestamp(6),
+        password_reset_token_expiry timestamp(6),
+        updated_at timestamp(6) not null,
+        verification_token_expiry timestamp(6),
+        first_name varchar(100) not null,
+        last_name varchar(100) not null,
+        email varchar(255) not null unique,
+        password varchar(255) not null,
+        password_reset_token varchar(255),
+        verification_token varchar(255),
+        primary key (id)
+    )
+2025-06-23 15:16:39 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_email 
+       on users (email)
+2025-06-23 15:16:39 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_verification_token 
+       on users (verification_token)
+2025-06-23 15:16:39 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 15:16:39 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 15:16:40 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 15:16:41 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 15:16:41 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@483cd51, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@13434988, org.springframework.security.web.context.SecurityContextHolderFilter@6d494be8, org.springframework.security.web.header.HeaderWriterFilter@e6c2c4b, org.springframework.web.filter.CorsFilter@10c5f6cc, org.springframework.security.web.authentication.logout.LogoutFilter@1f0193b, com.pm.authservice.security.JwtAuthenticationFilter@5841ad8a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@54d225a1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a2a1f36, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@294e1480, org.springframework.security.web.session.SessionManagementFilter@1c3e587c, org.springframework.security.web.access.ExceptionTranslationFilter@25351e48, org.springframework.security.web.access.intercept.AuthorizationFilter@346a000f]
+2025-06-23 15:16:42 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 15:16:42 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 15:16:42 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 10.197 seconds (process running for 11.577)
+2025-06-23 15:16:43 [RMI TCP Connection(2)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 15:16:43 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 15:16:43 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-06-23 15:18:34 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 15:18:34 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 15:18:34 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:18:34 [http-nio-8082-exec-2] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/v1/auth/register' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-06-23 15:18:34 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 15:18:35 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: fm3233000@gmail.com
+2025-06-23 15:18:35 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 15:18:35 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (created_at, email, failed_login_attempts, first_name, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, last_login_at, last_name, lock_time, password, password_reset_token, password_reset_token_expiry, updated_at, verification_token, verification_token_expiry) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-06-23 15:18:35 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - User registered successfully with email: fm3233000@gmail.com
+2025-06-23 15:18:39 [Email-1] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fm3233000@gmail.com
+2025-06-23 15:18:39 [Email-1] INFO  c.p.authservice.service.EmailService - 📧 Verification email sent to: fm3233000@gmail.com
+2025-06-23 15:18:39 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Backend Verification URL: http://localhost:8082/api/v1/auth/verify-email/09112a89-e7fa-4c9c-a563-0050a3058c7c
+2025-06-23 15:18:39 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Frontend Redirect URL: http://localhost:3000/login?verified=true
+2025-06-23 15:19:41 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 15:19:41 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 15:19:41 [http-nio-8082-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:19:41 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 15:19:41 [http-nio-8082-exec-5] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: fm3233000@gmail.com
+2025-06-23 15:19:41 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 15:19:41 [http-nio-8082-exec-5] ERROR c.p.a.e.GlobalExceptionHandler - Bad request exception: User with this email already exists
+2025-06-23 15:19:41 [http-nio-8082-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.pm.authservice.exception.BadRequestException: User with this email already exists]
+2025-06-23 15:20:29 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/auth/verify-email/ab919deb-cd99-4222-a8a7-d8b657573b26
+2025-06-23 15:20:29 [http-nio-8082-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:20:29 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/auth/verify-email/ab919deb-cd99-4222-a8a7-d8b657573b26
+2025-06-23 15:20:29 [http-nio-8082-exec-6] INFO  c.pm.authservice.service.AuthService - Attempting to verify email with token: ab919deb-cd99-4222-a8a7-d8b657573b26
+2025-06-23 15:20:29 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.verification_token=?
+2025-06-23 15:20:29 [http-nio-8082-exec-6] ERROR c.p.a.controller.AuthController - ❌ Email verification failed for token ab919deb-cd99-4222-a8a7-d8b657573b26: Invalid verification token
+2025-06-23 15:20:40 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/forgot-password
+2025-06-23 15:20:40 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/forgot-password
+2025-06-23 15:20:40 [http-nio-8082-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:20:40 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/forgot-password
+2025-06-23 15:20:40 [http-nio-8082-exec-8] INFO  c.pm.authservice.service.AuthService - Processing forgot password request for email: fm3233000@gmail.com
+2025-06-23 15:20:40 [http-nio-8082-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 15:20:40 [http-nio-8082-exec-8] WARN  c.pm.authservice.service.AuthService - Password reset requested for unverified account: fm3233000@gmail.com
+2025-06-23 15:20:40 [http-nio-8082-exec-8] INFO  c.p.a.controller.AuthController - 🔐 Password reset email sent for: fm3233000@gmail.com
+2025-06-23 15:21:22 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 15:21:22 [SpringApplicationShutdownHook] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 15:21:22 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 15:21:22 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-23 15:43:06 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 27787 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 15:43:06 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 15:43:06 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 15:43:06 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 15:43:06 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 15:43:08 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 15:43:08 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 1 JPA repository interface.
+2025-06-23 15:43:08 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 15:43:09 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 15:43:09 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 15:43:09 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 15:43:09 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 15:43:09 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2762 ms
+2025-06-23 15:43:10 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 15:43:10 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 15:43:10 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 15:43:10 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 15:43:10 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 15:43:11 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 15:43:11 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 15:43:11 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@306f8991
+2025-06-23 15:43:11 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 15:43:11 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table users (
+        id bigserial not null,
+        created_at timestamp(6) not null,
+        email varchar(255) not null,
+        failed_login_attempts integer not null,
+        first_name varchar(100) not null,
+        is_account_non_expired boolean not null,
+        is_account_non_locked boolean not null,
+        is_credentials_non_expired boolean not null,
+        is_enabled boolean not null,
+        last_login_at timestamp(6),
+        last_name varchar(100) not null,
+        lock_time timestamp(6),
+        password varchar(255) not null,
+        password_reset_token varchar(255),
+        password_reset_token_expiry timestamp(6),
+        updated_at timestamp(6) not null,
+        verification_token varchar(255),
+        verification_token_expiry timestamp(6),
+        primary key (id)
+    )
+2025-06-23 15:43:11 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_email 
+       on users (email)
+2025-06-23 15:43:11 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_verification_token 
+       on users (verification_token)
+2025-06-23 15:43:11 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UK_6dotkott2kjsp8vw4d0m25fb7
+2025-06-23 15:43:11 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-06-23 15:43:11 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2025-06-23 15:43:11 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2025-06-23 15:43:11 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 15:43:12 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 15:43:12 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 15:43:13 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 15:43:14 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@15062fa0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31131c13, org.springframework.security.web.context.SecurityContextHolderFilter@23d527e8, org.springframework.security.web.header.HeaderWriterFilter@21357d1a, org.springframework.web.filter.CorsFilter@10f31a2d, org.springframework.security.web.authentication.logout.LogoutFilter@73e16cc4, com.pm.authservice.security.JwtAuthenticationFilter@25a7b806, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35722ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@658086f2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@520ea2bd, org.springframework.security.web.session.SessionManagementFilter@1b490b41, org.springframework.security.web.access.ExceptionTranslationFilter@1cbc5100, org.springframework.security.web.access.intercept.AuthorizationFilter@327cda4a]
+2025-06-23 15:43:14 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 15:43:15 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 15:43:15 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 9.808 seconds (process running for 11.05)
+2025-06-23 15:43:15 [RMI TCP Connection(2)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 15:43:15 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 15:43:15 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-06-23 15:44:50 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 15:44:50 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 15:44:50 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:44:50 [http-nio-8082-exec-2] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/v1/auth/register' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-06-23 15:44:50 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 15:44:50 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: fm3233000@gmail.com
+2025-06-23 15:44:50 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 15:44:50 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (created_at, email, failed_login_attempts, first_name, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, last_login_at, last_name, lock_time, password, password_reset_token, password_reset_token_expiry, updated_at, verification_token, verification_token_expiry) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-06-23 15:44:50 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - User registered successfully with email: fm3233000@gmail.com
+2025-06-23 15:44:54 [Email-1] ERROR c.p.authservice.service.EmailService - ❌ Failed to send verification email to: fm3233000@gmail.com
+org.springframework.mail.MailAuthenticationException: Authentication failed
+	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:402)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:350)
+	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101)
+	at com.pm.authservice.service.EmailService.sendEmail(EmailService.java:51)
+	at com.pm.authservice.service.EmailService.sendVerificationEmail(EmailService.java:78)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:352)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
+	at org.springframework.aop.interceptor.AsyncExecutionInterceptor.lambda$invoke$0(AsyncExecutionInterceptor.java:115)
+	at org.springframework.util.concurrent.FutureUtils.lambda$toSupplier$0(FutureUtils.java:74)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: jakarta.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-45364708297sm111143055e9.35 - gsmtp
+
+	at org.eclipse.angus.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:954)
+	at org.eclipse.angus.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:865)
+	at org.eclipse.angus.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:769)
+	at jakarta.mail.Service.connect(Service.java:345)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.connectTransport(JavaMailSenderImpl.java:480)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:399)
+	... 16 common frames omitted
+2025-06-23 15:45:05 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/auth/verify-email/09112a89-e7fa-4c9c-a563-0050a3058c7c
+2025-06-23 15:45:05 [http-nio-8082-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:45:05 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/auth/verify-email/09112a89-e7fa-4c9c-a563-0050a3058c7c
+2025-06-23 15:45:05 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Attempting to verify email with token: 09112a89-e7fa-4c9c-a563-0050a3058c7c
+2025-06-23 15:45:05 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.verification_token=?
+2025-06-23 15:45:05 [http-nio-8082-exec-3] ERROR c.p.a.controller.AuthController - ❌ Email verification failed for token 09112a89-e7fa-4c9c-a563-0050a3058c7c: Invalid verification token
+2025-06-23 15:45:16 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 15:45:16 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 15:45:16 [http-nio-8082-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:45:16 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 15:45:16 [http-nio-8082-exec-5] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 15:45:16 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 15:45:16 [http-nio-8082-exec-5] ERROR c.p.a.e.GlobalExceptionHandler - Account not verified exception: Please verify your email address before logging in
+2025-06-23 15:45:16 [http-nio-8082-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.pm.authservice.exception.AccountNotVerifiedException: Please verify your email address before logging in]
+2025-06-23 15:45:19 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 15:45:19 [http-nio-8082-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:45:19 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 15:45:19 [http-nio-8082-exec-6] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 15:45:19 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 15:45:19 [http-nio-8082-exec-6] ERROR c.p.a.e.GlobalExceptionHandler - Account not verified exception: Please verify your email address before logging in
+2025-06-23 15:45:19 [http-nio-8082-exec-6] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.pm.authservice.exception.AccountNotVerifiedException: Please verify your email address before logging in]
+2025-06-23 15:45:36 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/auth/verify-email/8c1976d6-3479-42a8-bf16-bb2e3de72e13
+2025-06-23 15:45:36 [http-nio-8082-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:45:36 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/auth/verify-email/8c1976d6-3479-42a8-bf16-bb2e3de72e13
+2025-06-23 15:45:36 [http-nio-8082-exec-7] INFO  c.pm.authservice.service.AuthService - Attempting to verify email with token: 8c1976d6-3479-42a8-bf16-bb2e3de72e13
+2025-06-23 15:45:36 [http-nio-8082-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.verification_token=?
+2025-06-23 15:45:36 [http-nio-8082-exec-7] ERROR c.p.a.controller.AuthController - ❌ Email verification failed for token 8c1976d6-3479-42a8-bf16-bb2e3de72e13: Invalid verification token
+2025-06-23 15:45:51 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 15:45:51 [http-nio-8082-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 15:45:51 [http-nio-8082-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:45:51 [http-nio-8082-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 15:45:51 [http-nio-8082-exec-9] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 15:45:51 [http-nio-8082-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 15:45:51 [http-nio-8082-exec-9] ERROR c.p.a.e.GlobalExceptionHandler - Account not verified exception: Please verify your email address before logging in
+2025-06-23 15:45:51 [http-nio-8082-exec-9] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.pm.authservice.exception.AccountNotVerifiedException: Please verify your email address before logging in]
+2025-06-23 15:45:55 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 15:45:55 [http-nio-8082-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:45:55 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 15:45:55 [http-nio-8082-exec-1] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 15:45:55 [http-nio-8082-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 15:45:55 [http-nio-8082-exec-1] ERROR c.p.a.e.GlobalExceptionHandler - Account not verified exception: Please verify your email address before logging in
+2025-06-23 15:45:55 [http-nio-8082-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.pm.authservice.exception.AccountNotVerifiedException: Please verify your email address before logging in]
+2025-06-23 15:47:27 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 15:47:27 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 15:47:27 [http-nio-8082-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:47:27 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 15:47:27 [http-nio-8082-exec-5] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: fm3233000@gmail.com
+2025-06-23 15:47:27 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 15:47:27 [http-nio-8082-exec-5] ERROR c.p.a.e.GlobalExceptionHandler - Bad request exception: User with this email already exists
+2025-06-23 15:47:27 [http-nio-8082-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.pm.authservice.exception.BadRequestException: User with this email already exists]
+2025-06-23 15:48:20 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/auth/verify-email/ab919deb-cd99-4222-a8a7-d8b657573b26
+2025-06-23 15:48:20 [http-nio-8082-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:48:20 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/auth/verify-email/ab919deb-cd99-4222-a8a7-d8b657573b26
+2025-06-23 15:48:20 [http-nio-8082-exec-6] INFO  c.pm.authservice.service.AuthService - Attempting to verify email with token: ab919deb-cd99-4222-a8a7-d8b657573b26
+2025-06-23 15:48:20 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.verification_token=?
+2025-06-23 15:48:20 [http-nio-8082-exec-6] ERROR c.p.a.controller.AuthController - ❌ Email verification failed for token ab919deb-cd99-4222-a8a7-d8b657573b26: Invalid verification token
+2025-06-23 15:48:28 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 15:48:28 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 15:48:28 [http-nio-8082-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:48:28 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 15:48:28 [http-nio-8082-exec-8] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 15:48:28 [http-nio-8082-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 15:48:28 [http-nio-8082-exec-8] ERROR c.p.a.e.GlobalExceptionHandler - Account not verified exception: Please verify your email address before logging in
+2025-06-23 15:48:28 [http-nio-8082-exec-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.pm.authservice.exception.AccountNotVerifiedException: Please verify your email address before logging in]
+2025-06-23 15:48:40 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 15:48:40 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 15:48:40 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-23 15:48:44 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 28684 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 15:48:44 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 15:48:44 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 15:48:44 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 15:48:44 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 15:48:45 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 15:48:45 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 1 JPA repository interface.
+2025-06-23 15:48:45 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 15:48:47 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 15:48:47 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 15:48:47 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 15:48:47 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 15:48:47 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2720 ms
+2025-06-23 15:48:47 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 15:48:47 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 15:48:47 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 15:48:47 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 15:48:47 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 15:48:48 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 15:48:48 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 15:48:49 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@55b3b54b
+2025-06-23 15:48:49 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 15:48:49 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 15:48:49 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 15:48:50 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 15:48:52 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 15:48:52 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4edcfdd6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c26483, org.springframework.security.web.context.SecurityContextHolderFilter@14090a9b, org.springframework.security.web.header.HeaderWriterFilter@75433281, org.springframework.web.filter.CorsFilter@787798ea, org.springframework.security.web.authentication.logout.LogoutFilter@664d7452, com.pm.authservice.security.JwtAuthenticationFilter@529e92e2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7a6361af, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@35cfd981, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6dcb8d84, org.springframework.security.web.session.SessionManagementFilter@11cf1c41, org.springframework.security.web.access.ExceptionTranslationFilter@71edb4a2, org.springframework.security.web.access.intercept.AuthorizationFilter@7889557c]
+2025-06-23 15:48:53 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 15:48:53 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 15:48:53 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 11.061 seconds (process running for 12.195)
+2025-06-23 15:48:54 [RMI TCP Connection(2)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 15:48:54 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 15:48:54 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-06-23 15:49:28 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 15:49:28 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 15:49:28 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:49:28 [http-nio-8082-exec-2] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/v1/auth/login' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-06-23 15:49:28 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 15:49:28 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 15:49:28 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 15:49:28 [http-nio-8082-exec-2] ERROR c.p.a.e.GlobalExceptionHandler - Account not verified exception: Please verify your email address before logging in
+2025-06-23 15:49:28 [http-nio-8082-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.pm.authservice.exception.AccountNotVerifiedException: Please verify your email address before logging in]
+2025-06-23 15:51:20 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 15:51:20 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 15:51:20 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-23 15:51:24 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 28994 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 15:51:24 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 15:51:24 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 15:51:24 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 15:51:24 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 15:51:26 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 15:51:26 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 1 JPA repository interface.
+2025-06-23 15:51:26 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 15:51:27 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 15:51:27 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 15:51:27 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 15:51:27 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 15:51:27 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3054 ms
+2025-06-23 15:51:28 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 15:51:28 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 15:51:28 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 15:51:28 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 15:51:28 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 15:51:29 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 15:51:29 [restartedMain] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 15:51:29 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 15:51:29 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3299dc28
+2025-06-23 15:51:29 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 15:51:29 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table users (
+        failed_login_attempts integer not null,
+        is_account_non_expired boolean not null,
+        is_account_non_locked boolean not null,
+        is_credentials_non_expired boolean not null,
+        is_enabled boolean not null,
+        created_at timestamp(6) not null,
+        id bigserial not null,
+        last_login_at timestamp(6),
+        lock_time timestamp(6),
+        password_reset_token_expiry timestamp(6),
+        updated_at timestamp(6) not null,
+        verification_token_expiry timestamp(6),
+        first_name varchar(100) not null,
+        last_name varchar(100) not null,
+        email varchar(255) not null unique,
+        password varchar(255) not null,
+        password_reset_token varchar(255),
+        verification_token varchar(255),
+        primary key (id)
+    )
+2025-06-23 15:51:29 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_email 
+       on users (email)
+2025-06-23 15:51:29 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_verification_token 
+       on users (verification_token)
+2025-06-23 15:51:29 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 15:51:30 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 15:51:30 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 15:51:31 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 15:51:32 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3067d79f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1322ae7b, org.springframework.security.web.context.SecurityContextHolderFilter@539c5daf, org.springframework.security.web.header.HeaderWriterFilter@458abd96, org.springframework.web.filter.CorsFilter@6211905b, org.springframework.security.web.authentication.logout.LogoutFilter@1232a73b, com.pm.authservice.security.JwtAuthenticationFilter@77a376db, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6b6c3d62, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3edd017c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@53d37aa7, org.springframework.security.web.session.SessionManagementFilter@6980464e, org.springframework.security.web.access.ExceptionTranslationFilter@4ca4cead, org.springframework.security.web.access.intercept.AuthorizationFilter@3662237d]
+2025-06-23 15:51:32 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 15:51:32 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 15:51:33 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 10.324 seconds (process running for 11.481)
+2025-06-23 15:51:33 [RMI TCP Connection(3)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 15:51:33 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 15:51:33 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2025-06-23 15:51:38 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 15:51:38 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 15:51:38 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:51:38 [http-nio-8082-exec-2] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/v1/auth/login' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-06-23 15:51:38 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 15:51:38 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 15:51:38 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 15:51:38 [http-nio-8082-exec-2] ERROR c.p.a.e.GlobalExceptionHandler - Authentication exception: Invalid email or password
+2025-06-23 15:51:38 [http-nio-8082-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2025-06-23 15:51:55 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 15:51:55 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 15:51:55 [http-nio-8082-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 15:51:55 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 15:51:55 [http-nio-8082-exec-4] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: fm3233000@gmail.com
+2025-06-23 15:51:55 [http-nio-8082-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 15:51:55 [http-nio-8082-exec-4] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (created_at, email, failed_login_attempts, first_name, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, last_login_at, last_name, lock_time, password, password_reset_token, password_reset_token_expiry, updated_at, verification_token, verification_token_expiry) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-06-23 15:51:55 [http-nio-8082-exec-4] INFO  c.pm.authservice.service.AuthService - User registered successfully with email: fm3233000@gmail.com
+2025-06-23 15:51:58 [Email-1] ERROR c.p.authservice.service.EmailService - ❌ Failed to send verification email to: fm3233000@gmail.com
+org.springframework.mail.MailAuthenticationException: Authentication failed
+	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:402)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:350)
+	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101)
+	at com.pm.authservice.service.EmailService.sendEmail(EmailService.java:51)
+	at com.pm.authservice.service.EmailService.sendVerificationEmail(EmailService.java:78)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:352)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
+	at org.springframework.aop.interceptor.AsyncExecutionInterceptor.lambda$invoke$0(AsyncExecutionInterceptor.java:115)
+	at org.springframework.util.concurrent.FutureUtils.lambda$toSupplier$0(FutureUtils.java:74)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: jakarta.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-3a6d117c0d1sm9654861f8f.60 - gsmtp
+
+	at org.eclipse.angus.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:954)
+	at org.eclipse.angus.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:865)
+	at org.eclipse.angus.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:769)
+	at jakarta.mail.Service.connect(Service.java:345)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.connectTransport(JavaMailSenderImpl.java:480)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:399)
+	... 16 common frames omitted
+2025-06-23 15:52:33 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 15:52:33 [SpringApplicationShutdownHook] DEBUG org.hibernate.SQL - 
+    drop table if exists users cascade
+2025-06-23 15:52:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 15:52:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-23 16:00:40 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 29330 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 16:00:40 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 16:00:40 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 16:00:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 16:00:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 16:00:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 16:00:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 1 JPA repository interface.
+2025-06-23 16:00:41 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 16:00:42 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 16:00:42 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 16:00:42 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 16:00:43 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 16:00:43 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2709 ms
+2025-06-23 16:00:43 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 16:00:43 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 16:00:43 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 16:00:43 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 16:00:43 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 16:00:44 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 16:00:44 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 16:00:44 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4013dad5
+2025-06-23 16:00:44 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 16:00:44 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table users (
+        id bigserial not null,
+        created_at timestamp(6) not null,
+        email varchar(255) not null,
+        failed_login_attempts integer not null,
+        first_name varchar(100) not null,
+        is_account_non_expired boolean not null,
+        is_account_non_locked boolean not null,
+        is_credentials_non_expired boolean not null,
+        is_enabled boolean not null,
+        last_login_at timestamp(6),
+        last_name varchar(100) not null,
+        lock_time timestamp(6),
+        password varchar(255) not null,
+        password_reset_token varchar(255),
+        password_reset_token_expiry timestamp(6),
+        updated_at timestamp(6) not null,
+        verification_token varchar(255),
+        verification_token_expiry timestamp(6),
+        primary key (id)
+    )
+2025-06-23 16:00:44 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_email 
+       on users (email)
+2025-06-23 16:00:45 [restartedMain] DEBUG org.hibernate.SQL - 
+    create index idx_verification_token 
+       on users (verification_token)
+2025-06-23 16:00:45 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UK_6dotkott2kjsp8vw4d0m25fb7
+2025-06-23 16:00:45 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-06-23 16:00:45 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk_6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2025-06-23 16:00:45 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2025-06-23 16:00:45 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 16:00:45 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 16:00:46 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 16:00:47 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 16:00:47 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@403d3512, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7fb44894, org.springframework.security.web.context.SecurityContextHolderFilter@465de429, org.springframework.security.web.header.HeaderWriterFilter@2dfcd21, org.springframework.web.filter.CorsFilter@1b4f44bc, org.springframework.security.web.authentication.logout.LogoutFilter@3d6de752, com.pm.authservice.security.JwtAuthenticationFilter@54da2750, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@28b6470c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6e896b3e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@40faf969, org.springframework.security.web.session.SessionManagementFilter@741bb624, org.springframework.security.web.access.ExceptionTranslationFilter@11d0755, org.springframework.security.web.access.intercept.AuthorizationFilter@4646fc41]
+2025-06-23 16:00:48 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 16:00:48 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 16:00:48 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 9.701 seconds (process running for 10.867)
+2025-06-23 16:00:48 [RMI TCP Connection(3)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 16:00:48 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 16:00:48 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2025-06-23 16:00:58 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/register
+2025-06-23 16:00:58 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/register
+2025-06-23 16:00:58 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:00:58 [http-nio-8082-exec-2] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/v1/auth/register' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-06-23 16:00:58 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/register
+2025-06-23 16:00:58 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Attempting to register user with email: fm3233000@gmail.com
+2025-06-23 16:00:58 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?) 
+    fetch
+        first ? rows only
+2025-06-23 16:00:59 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (created_at, email, failed_login_attempts, first_name, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, last_login_at, last_name, lock_time, password, password_reset_token, password_reset_token_expiry, updated_at, verification_token, verification_token_expiry) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-06-23 16:00:59 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - User registered successfully with email: fm3233000@gmail.com
+2025-06-23 16:01:03 [Email-1] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fm3233000@gmail.com
+2025-06-23 16:01:03 [Email-1] INFO  c.p.authservice.service.EmailService - 📧 Verification email sent to: fm3233000@gmail.com
+2025-06-23 16:01:03 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Backend Verification URL: http://localhost:8082/api/v1/auth/verify-email/7a18b281-c72d-4085-904e-91380305aa73
+2025-06-23 16:01:03 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Frontend Redirect URL: http://localhost:3000/login?verified=true
+2025-06-23 16:01:11 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/auth/verify-email/7a18b281-c72d-4085-904e-91380305aa73
+2025-06-23 16:01:11 [http-nio-8082-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:01:11 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/auth/verify-email/7a18b281-c72d-4085-904e-91380305aa73
+2025-06-23 16:01:11 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Attempting to verify email with token: 7a18b281-c72d-4085-904e-91380305aa73
+2025-06-23 16:01:11 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.verification_token=?
+2025-06-23 16:01:11 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Email verified successfully for user: fm3233000@gmail.com
+2025-06-23 16:01:11 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 16:01:11 [http-nio-8082-exec-3] INFO  c.p.a.controller.AuthController - ✅ Email verification successful for token: 7a18b281-c72d-4085-904e-91380305aa73
+2025-06-23 16:01:16 [Email-2] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fm3233000@gmail.com
+2025-06-23 16:01:16 [Email-2] INFO  c.p.authservice.service.EmailService - 🎉 Welcome email sent to: fm3233000@gmail.com
+2025-06-23 16:01:27 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 16:01:27 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 16:01:27 [http-nio-8082-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:01:27 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 16:01:27 [http-nio-8082-exec-5] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 16:01:27 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:01:27 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:01:28 [http-nio-8082-exec-5] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 16:01:28 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 16:01:28 [http-nio-8082-exec-5] INFO  c.pm.authservice.service.AuthService - User logged in successfully: fm3233000@gmail.com
+2025-06-23 16:01:45 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/forgot-password
+2025-06-23 16:01:45 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/forgot-password
+2025-06-23 16:01:45 [http-nio-8082-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:01:45 [http-nio-8082-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/forgot-password
+2025-06-23 16:01:45 [http-nio-8082-exec-7] INFO  c.pm.authservice.service.AuthService - Processing forgot password request for email: fm323300@gmail.com
+2025-06-23 16:01:45 [http-nio-8082-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:01:45 [http-nio-8082-exec-7] WARN  c.pm.authservice.service.AuthService - Forgot password requested for non-existent email: fm323300@gmail.com
+2025-06-23 16:01:45 [http-nio-8082-exec-7] INFO  c.p.a.controller.AuthController - 🔐 Password reset email sent for: fm323300@gmail.com
+2025-06-23 16:02:10 [http-nio-8082-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/forgot-password
+2025-06-23 16:02:10 [http-nio-8082-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/forgot-password
+2025-06-23 16:02:10 [http-nio-8082-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:02:10 [http-nio-8082-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/forgot-password
+2025-06-23 16:02:10 [http-nio-8082-exec-9] INFO  c.pm.authservice.service.AuthService - Processing forgot password request for email: fm3233000@gmail.com
+2025-06-23 16:02:10 [http-nio-8082-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:02:10 [http-nio-8082-exec-9] INFO  c.pm.authservice.service.AuthService - Password reset token generated and email sent for user: fm3233000@gmail.com
+2025-06-23 16:02:10 [http-nio-8082-exec-9] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 16:02:10 [http-nio-8082-exec-9] INFO  c.p.a.controller.AuthController - 🔐 Password reset email sent for: fm3233000@gmail.com
+2025-06-23 16:02:14 [Email-1] INFO  c.p.authservice.service.EmailService - ✅ Email sent successfully to: fm3233000@gmail.com
+2025-06-23 16:02:14 [Email-1] INFO  c.p.authservice.service.EmailService - 🔐 Password reset email sent to: fm3233000@gmail.com
+2025-06-23 16:02:14 [Email-1] INFO  c.p.authservice.service.EmailService - 🔗 Reset URL: http://localhost:3000/reset-password?token=a2aba230-cab0-431d-8643-0fc49b14d10d
+2025-06-23 16:02:28 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/reset-password/a2aba230-cab0-431d-8643-0fc49b14d10d
+2025-06-23 16:02:28 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/reset-password/a2aba230-cab0-431d-8643-0fc49b14d10d
+2025-06-23 16:02:28 [http-nio-8082-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:02:28 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/reset-password/a2aba230-cab0-431d-8643-0fc49b14d10d
+2025-06-23 16:02:28 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Attempting password reset with token: a2aba230-cab0-431d-8643-0fc49b14d10d
+2025-06-23 16:02:28 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        u1_0.password_reset_token=?
+2025-06-23 16:02:29 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Password reset successful for user: fm3233000@gmail.com
+2025-06-23 16:02:29 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        failed_login_attempts=?,
+        first_name=?,
+        is_account_non_expired=?,
+        is_account_non_locked=?,
+        is_credentials_non_expired=?,
+        is_enabled=?,
+        last_login_at=?,
+        last_name=?,
+        lock_time=?,
+        password=?,
+        password_reset_token=?,
+        password_reset_token_expiry=?,
+        updated_at=?,
+        verification_token=?,
+        verification_token_expiry=? 
+    where
+        id=?
+2025-06-23 16:02:29 [http-nio-8082-exec-3] INFO  c.p.a.controller.AuthController - ✅ Password reset successful for token: a2aba230-cab0-431d-8643-0fc49b14d10d
+2025-06-23 16:02:43 [http-nio-8082-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 16:02:43 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 16:02:43 [http-nio-8082-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:02:43 [http-nio-8082-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 16:02:43 [http-nio-8082-exec-5] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 16:02:43 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:02:43 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:02:43 [http-nio-8082-exec-5] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Failed to authenticate since password does not match stored value
+2025-06-23 16:02:43 [http-nio-8082-exec-5] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=?,
+        lock_time=? 
+    where
+        email=?
+2025-06-23 16:02:43 [http-nio-8082-exec-5] ERROR c.p.a.e.GlobalExceptionHandler - Authentication exception: Invalid email or password
+2025-06-23 16:02:43 [http-nio-8082-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2025-06-23 16:02:44 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 16:02:44 [http-nio-8082-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:02:44 [http-nio-8082-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 16:02:44 [http-nio-8082-exec-6] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 16:02:44 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:02:44 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:02:45 [http-nio-8082-exec-6] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 16:02:45 [http-nio-8082-exec-6] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 16:02:45 [http-nio-8082-exec-6] INFO  c.pm.authservice.service.AuthService - User logged in successfully: fm3233000@gmail.com
+2025-06-23 16:02:48 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 16:02:48 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 16:02:48 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-23 16:02:52 [restartedMain] INFO  c.p.a.AuthServiceApplication - Starting AuthServiceApplication using Java 22.0.2 with PID 29764 (/home/faisal/Downloads/expense tracker app/auth-service/target/classes started by faisal in /home/faisal/Downloads/expense tracker app)
+2025-06-23 16:02:52 [restartedMain] DEBUG c.p.a.AuthServiceApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-23 16:02:52 [restartedMain] INFO  c.p.a.AuthServiceApplication - The following 1 profile is active: "dev"
+2025-06-23 16:02:52 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-23 16:02:52 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-23 16:02:54 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-23 16:02:54 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 53 ms. Found 1 JPA repository interface.
+2025-06-23 16:02:54 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aaf742e3-d84a-307c-87c0-53ca756c20ef
+2025-06-23 16:02:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-06-23 16:02:55 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-23 16:02:55 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-06-23 16:02:55 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-23 16:02:55 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2865 ms
+2025-06-23 16:02:56 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-23 16:02:56 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-23 16:02:56 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-23 16:02:56 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-23 16:02:56 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-23 16:02:57 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-23 16:02:57 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-23 16:02:57 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@56db48d7
+2025-06-23 16:02:57 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-23 16:02:57 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 16:02:58 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-23 16:02:58 [restartedMain] DEBUG c.p.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-06-23 16:03:00 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-23 16:03:00 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@71e8b784, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@25f59a2c, org.springframework.security.web.context.SecurityContextHolderFilter@572a3437, org.springframework.security.web.header.HeaderWriterFilter@650f9ce1, org.springframework.web.filter.CorsFilter@647a74c9, org.springframework.security.web.authentication.logout.LogoutFilter@5061012c, com.pm.authservice.security.JwtAuthenticationFilter@5fac29d1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@776c2609, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6ba7a155, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@63ee072c, org.springframework.security.web.session.SessionManagementFilter@5559f104, org.springframework.security.web.access.ExceptionTranslationFilter@2bcad22b, org.springframework.security.web.access.intercept.AuthorizationFilter@650d4e2d]
+2025-06-23 16:03:01 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-23 16:03:01 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2025-06-23 16:03:01 [restartedMain] INFO  c.p.a.AuthServiceApplication - Started AuthServiceApplication in 10.672 seconds (process running for 12.082)
+2025-06-23 16:03:02 [RMI TCP Connection(2)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 16:03:02 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-23 16:03:02 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2025-06-23 16:03:16 [http-nio-8082-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /api/v1/auth/login
+2025-06-23 16:03:16 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 16:03:16 [http-nio-8082-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:03:16 [http-nio-8082-exec-2] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/v1/auth/login' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-06-23 16:03:16 [http-nio-8082-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 16:03:16 [http-nio-8082-exec-2] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 16:03:16 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:03:16 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:03:17 [http-nio-8082-exec-2] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Failed to authenticate since password does not match stored value
+2025-06-23 16:03:17 [http-nio-8082-exec-2] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=?,
+        lock_time=? 
+    where
+        email=?
+2025-06-23 16:03:17 [http-nio-8082-exec-2] ERROR c.p.a.e.GlobalExceptionHandler - Authentication exception: Invalid email or password
+2025-06-23 16:03:17 [http-nio-8082-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2025-06-23 16:03:19 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/auth/login
+2025-06-23 16:03:19 [http-nio-8082-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-23 16:03:19 [http-nio-8082-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/auth/login
+2025-06-23 16:03:19 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - Attempting to login user with email: fm3233000@gmail.com
+2025-06-23 16:03:19 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:03:19 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.failed_login_attempts,
+        u1_0.first_name,
+        u1_0.is_account_non_expired,
+        u1_0.is_account_non_locked,
+        u1_0.is_credentials_non_expired,
+        u1_0.is_enabled,
+        u1_0.last_login_at,
+        u1_0.last_name,
+        u1_0.lock_time,
+        u1_0.password,
+        u1_0.password_reset_token,
+        u1_0.password_reset_token_expiry,
+        u1_0.updated_at,
+        u1_0.verification_token,
+        u1_0.verification_token_expiry 
+    from
+        users u1_0 
+    where
+        upper(u1_0.email)=upper(?)
+2025-06-23 16:03:19 [http-nio-8082-exec-3] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-06-23 16:03:19 [http-nio-8082-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        failed_login_attempts=0,
+        lock_time=null,
+        last_login_at=? 
+    where
+        email=?
+2025-06-23 16:03:19 [http-nio-8082-exec-3] INFO  c.pm.authservice.service.AuthService - User logged in successfully: fm3233000@gmail.com
+2025-06-23 16:03:29 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-23 16:03:29 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-23 16:03:29 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

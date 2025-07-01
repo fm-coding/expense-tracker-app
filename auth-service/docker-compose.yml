@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: pm-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pm_auth_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 4422
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pm-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pm_auth_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Auth Service
+  auth-service:
+    image: pm-auth-service:latest
+    container_name: auth-service-8084
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: pm_auth_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: 4422
+      MAIL_USERNAME: sugarbouy17@gmail.com
+      MAIL_PASSWORD: "fhun zktk pjpo arhc"
+      JWT_SECRET: MyVerySecureSecretKeyThatIsAtLeast64CharactersLongForHS512AlgorithmSecurity123456789
+      FRONTEND_URL: http://localhost:3000
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8084:8082"
+    networks:
+      - pm-network
+
+networks:
+  pm-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

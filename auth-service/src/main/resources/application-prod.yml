@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 10
+
+  jpa:
+    show-sql: false
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+
+logging:
+  level:
+    com.pm.authservice: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+  file:
+    name: /var/log/auth-service/auth-service.log
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-token-expiration-minutes: 15
+  frontend:
+    url: ${FRONTEND_URL}
+  cors:
+    allowed-origins: ${CORS_ORIGINS}
+
+security:
+  require-ssl: true

@@ -1,0 +1,46 @@
+2025-06-24 11:06:53 [main] INFO  c.p.a.AuthServiceApplicationTests - Starting AuthServiceApplicationTests using Java 21.0.6 with PID 12616 (started by faisal in /home/faisal/Downloads/expense tracker app/auth-service)
+2025-06-24 11:06:53 [main] DEBUG c.p.a.AuthServiceApplicationTests - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-24 11:06:53 [main] INFO  c.p.a.AuthServiceApplicationTests - The following 1 profile is active: "dev"
+2025-06-24 11:06:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-24 11:06:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 61 ms. Found 1 JPA repository interface.
+2025-06-24 11:06:55 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=bf273b12-b958-3bad-8179-cca79d73bbe6
+2025-06-24 11:06:57 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-24 11:06:57 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-24 11:06:57 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-24 11:06:58 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-24 11:06:58 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-24 11:07:01 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-24 11:07:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-24 11:07:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@89ff043
+2025-06-24 11:07:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-24 11:07:02 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24 11:07:03 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-24 11:07:06 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-24 11:07:06 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@627a1c77, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1acfb04c, org.springframework.security.web.context.SecurityContextHolderFilter@3e216fc9, org.springframework.security.web.header.HeaderWriterFilter@32fa7ff0, org.springframework.web.filter.CorsFilter@a683f92, org.springframework.security.web.authentication.logout.LogoutFilter@3405025a, com.pm.authservice.security.JwtAuthenticationFilter@5e79bdf6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@42d8b670, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@12300573, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6fb9dab6, org.springframework.security.web.session.SessionManagementFilter@3aac9173, org.springframework.security.web.access.ExceptionTranslationFilter@59f59a0a, org.springframework.security.web.access.intercept.AuthorizationFilter@6c9fe061]
+2025-06-24 11:07:09 [main] INFO  c.p.a.AuthServiceApplicationTests - Started AuthServiceApplicationTests in 18.612 seconds (process running for 23.124)
+2025-06-24 11:07:10 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24 11:07:10 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-24 11:07:10 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-24 11:26:33 [main] INFO  c.p.a.AuthServiceApplicationTests - Starting AuthServiceApplicationTests using Java 21.0.6 with PID 15280 (started by faisal in /home/faisal/Downloads/expense tracker app/auth-service)
+2025-06-24 11:26:33 [main] DEBUG c.p.a.AuthServiceApplicationTests - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-06-24 11:26:33 [main] INFO  c.p.a.AuthServiceApplicationTests - The following 1 profile is active: "dev"
+2025-06-24 11:26:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-24 11:26:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 80 ms. Found 1 JPA repository interface.
+2025-06-24 11:26:35 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=bf273b12-b958-3bad-8179-cca79d73bbe6
+2025-06-24 11:26:36 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-24 11:26:36 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-06-24 11:26:37 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-24 11:26:37 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-24 11:26:37 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-24 11:26:38 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-24 11:26:38 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-24 11:26:38 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3f04fb07
+2025-06-24 11:26:38 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-24 11:26:38 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24 11:26:39 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-24 11:26:42 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-06-24 11:26:42 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7bcd497, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@71a9e31b, org.springframework.security.web.context.SecurityContextHolderFilter@58fcb07b, org.springframework.security.web.header.HeaderWriterFilter@5ac168e3, org.springframework.web.filter.CorsFilter@18e7b33e, org.springframework.security.web.authentication.logout.LogoutFilter@2461b519, com.pm.authservice.security.JwtAuthenticationFilter@11c82829, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e7d874c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76b06e50, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b386ba7, org.springframework.security.web.session.SessionManagementFilter@ddd0e97, org.springframework.security.web.access.ExceptionTranslationFilter@32fccfc2, org.springframework.security.web.access.intercept.AuthorizationFilter@71e740c6]
+2025-06-24 11:26:44 [main] INFO  c.p.a.AuthServiceApplicationTests - Started AuthServiceApplicationTests in 13.136 seconds (process running for 14.734)
+2025-06-24 11:26:45 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24 11:26:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-24 11:26:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
