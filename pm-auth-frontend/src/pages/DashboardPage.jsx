@@ -73,7 +73,7 @@ const DashboardPage = () => {
     const [exchangeRates, setExchangeRates] = useState({});
     const [isEditingBudget, setIsEditingBudget] = useState(false);
     const [budgetInput, setBudgetInput] = useState('');
-    const [monthlyBudget, setMonthlyBudget] = useState(5000);
+    const [monthlyBudget, setMonthlyBudget] = useState(5000); // Stored in USD
 
     const [dashboardData, setDashboardData] = useState({
         totalBalance: 0,
@@ -185,6 +185,7 @@ const DashboardPage = () => {
             }
 
             const totalExpenses = dashboardResult.totalExpense || 0;
+            // Calculate budget used percentage based on USD values
             const budgetUsed = (totalExpenses / monthlyBudget) * 100;
 
             setDashboardData({
@@ -244,8 +245,8 @@ const DashboardPage = () => {
     };
 
     const handleBudgetSave = () => {
-        const newBudget = parseFloat(budgetInput);
-        if (isNaN(newBudget) || newBudget <= 0) {
+        const newBudgetInSelectedCurrency = parseFloat(budgetInput);
+        if (isNaN(newBudgetInSelectedCurrency) || newBudgetInSelectedCurrency <= 0) {
             toast({
                 title: "Invalid Budget",
                 description: "Please enter a valid budget amount",
@@ -254,13 +255,21 @@ const DashboardPage = () => {
             return;
         }
 
-        setMonthlyBudget(newBudget);
-        localStorage.setItem('monthlyBudget', newBudget.toString());
+        // Convert the budget to USD for storage
+        const newBudgetInUSD = selectedCurrency === 'USD'
+            ? newBudgetInSelectedCurrency
+            : newBudgetInSelectedCurrency / (exchangeRates[selectedCurrency] || 1);
+
+        setMonthlyBudget(newBudgetInUSD);
+        localStorage.setItem('monthlyBudget', newBudgetInUSD.toString());
         setIsEditingBudget(false);
         toast({
             title: "Budget Updated",
-            description: `Monthly budget set to ${formatCurrency(newBudget)}`,
+            description: `Monthly budget set to ${formatCurrency(newBudgetInUSD)}`,
         });
+
+        // Recalculate budget used percentage
+        fetchDashboardData();
     };
 
     const handleRefresh = async () => {
@@ -664,20 +673,28 @@ const DashboardPage = () => {
                                             size="sm"
                                             onClick={() => {
                                                 setIsEditingBudget(true);
-                                                setBudgetInput(monthlyBudget.toString());
+                                                // Convert budget to selected currency for editing
+                                                const budgetInSelectedCurrency = convertCurrency(monthlyBudget, 'USD');
+                                                setBudgetInput(budgetInSelectedCurrency.toFixed(2));
                                             }}
                                         >
                                             <Edit2 className="h-4 w-4" />
                                         </Button>
                                     ) : (
                                         <div className="flex items-center gap-2">
-                                            <Input
-                                                type="number"
-                                                value={budgetInput}
-                                                onChange={(e) => setBudgetInput(e.target.value)}
-                                                className="w-32 h-8"
-                                                placeholder="Budget"
-                                            />
+                                            <div className="relative">
+                                                <span className="absolute left-2 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                                    {currencies.find(c => c.code === selectedCurrency)?.symbol}
+                                                </span>
+                                                <Input
+                                                    type="number"
+                                                    value={budgetInput}
+                                                    onChange={(e) => setBudgetInput(e.target.value)}
+                                                    className="w-40 h-8 pl-8"
+                                                    placeholder="Budget"
+                                                    step="0.01"
+                                                />
+                                            </div>
                                             <Button
                                                 size="sm"
                                                 variant="ghost"
