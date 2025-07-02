@@ -20,13 +20,14 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-@RequiredArgsConstructor
+@RequiredArgsConstructor // Enable method-level security annotations like @PreAuthorize
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Bean
+    @Bean //
+    // This method configures the security filter chain for the application
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -52,6 +53,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // This method configures CORS settings for the application
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

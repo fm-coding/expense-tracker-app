@@ -23,7 +23,10 @@ import {
     Settings,
     Bell,
     Search,
-    ChevronRight
+    ChevronRight,
+    Edit2,
+    Check,
+    X
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -41,6 +44,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import ExpenseChart from '@/components/ExpenseChart';
 import RecentTransactions from '@/components/RecentTransactions';
@@ -49,6 +59,7 @@ import ImportExcelDialog from '@/components/ImportExcelDialog';
 import { useAuth } from '@/contexts/auth-context';
 import { useToast } from '@/hooks/use-toast';
 import { expenseService } from '@/services/expenseService';
+import { currencies, getExchangeRates } from '@/config/currency.js';
 
 const DashboardPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +69,12 @@ const DashboardPage = () => {
     const [selectedPeriod, setSelectedPeriod] = useState('month');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [selectedCurrency, setSelectedCurrency] = useState('USD');
+    const [exchangeRates, setExchangeRates] = useState({});
+    const [isEditingBudget, setIsEditingBudget] = useState(false);
+    const [budgetInput, setBudgetInput] = useState('');
+    const [monthlyBudget, setMonthlyBudget] = useState(5000);
+
     const [dashboardData, setDashboardData] = useState({
         totalBalance: 0,
         totalIncome: 0,
@@ -68,12 +85,33 @@ const DashboardPage = () => {
         savingsRate: 0,
         incomeTrend: 0,
         expenseTrend: 0,
-        monthlyBudget: 5000, // Example budget
         budgetUsed: 0
     });
 
     const { user, logout } = useAuth();
     const { toast } = useToast();
+
+    // Load saved preferences
+    useEffect(() => {
+        const savedCurrency = localStorage.getItem('preferredCurrency') || 'USD';
+        const savedBudget = localStorage.getItem('monthlyBudget');
+        setSelectedCurrency(savedCurrency);
+        if (savedBudget) {
+            setMonthlyBudget(parseFloat(savedBudget));
+        }
+    }, []);
+
+    // Fetch exchange rates
+    useEffect(() => {
+        const fetchRates = async () => {
+            const rates = await getExchangeRates('USD');
+            setExchangeRates(rates);
+        };
+        fetchRates();
+        // Refresh rates every 30 minutes
+        const interval = setInterval(fetchRates, 30 * 60 * 1000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         if (user) {
@@ -84,6 +122,27 @@ const DashboardPage = () => {
     const calculateTrend = (current, previous) => {
         if (!previous || previous === 0) return 0;
         return parseFloat(((current - previous) / previous * 100).toFixed(1));
+    };
+
+    const convertCurrency = (amount, fromCurrency = 'USD') => {
+        if (fromCurrency === selectedCurrency) return amount;
+        if (!exchangeRates[selectedCurrency]) return amount;
+
+        // Convert to USD first, then to target currency
+        const usdAmount = fromCurrency === 'USD' ? amount : amount / exchangeRates[fromCurrency];
+        return usdAmount * exchangeRates[selectedCurrency];
+    };
+
+    const formatCurrency = (amount, currencyCode = selectedCurrency) => {
+        const currency = currencies.find(c => c.code === currencyCode);
+        const convertedAmount = convertCurrency(amount);
+
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: currencyCode,
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(convertedAmount);
     };
 
     const fetchDashboardData = async () => {
@@ -126,7 +185,6 @@ const DashboardPage = () => {
             }
 
             const totalExpenses = dashboardResult.totalExpense || 0;
-            const monthlyBudget = 5000; // This should come from user settings
             const budgetUsed = (totalExpenses / monthlyBudget) * 100;
 
             setDashboardData({
@@ -136,7 +194,6 @@ const DashboardPage = () => {
                 savingsRate: dashboardResult.savingsRate || 0,
                 incomeTrend: incomeTrend,
                 expenseTrend: expenseTrend,
-                monthlyBudget: monthlyBudget,
                 budgetUsed: Math.min(budgetUsed, 100),
                 recentTransactions: (dashboardResult.recentTransactions || []).map(tx => ({
                     id: tx.id,
@@ -167,20 +224,6 @@ const DashboardPage = () => {
 
         } catch (error) {
             console.error('Dashboard fetch error:', error);
-            setDashboardData({
-                totalBalance: 0,
-                totalIncome: 0,
-                totalExpenses: 0,
-                recentTransactions: [],
-                categoryBreakdown: [],
-                monthlyTrend: [],
-                savingsRate: 0,
-                incomeTrend: 0,
-                expenseTrend: 0,
-                monthlyBudget: 5000,
-                budgetUsed: 0
-            });
-
             toast({
                 title: "Error",
                 description: error.response?.data?.message || "Failed to load dashboard data. Please try again.",
@@ -189,6 +232,35 @@ const DashboardPage = () => {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleCurrencyChange = (currency) => {
+        setSelectedCurrency(currency);
+        localStorage.setItem('preferredCurrency', currency);
+        toast({
+            title: "Currency Updated",
+            description: `Dashboard now displaying in ${currency}`,
+        });
+    };
+
+    const handleBudgetSave = () => {
+        const newBudget = parseFloat(budgetInput);
+        if (isNaN(newBudget) || newBudget <= 0) {
+            toast({
+                title: "Invalid Budget",
+                description: "Please enter a valid budget amount",
+                variant: "destructive"
+            });
+            return;
+        }
+
+        setMonthlyBudget(newBudget);
+        localStorage.setItem('monthlyBudget', newBudget.toString());
+        setIsEditingBudget(false);
+        toast({
+            title: "Budget Updated",
+            description: `Monthly budget set to ${formatCurrency(newBudget)}`,
+        });
     };
 
     const handleRefresh = async () => {
@@ -234,24 +306,21 @@ const DashboardPage = () => {
             const result = await expenseService.importTransactions(formData);
             await fetchDashboardData();
 
-            // Check if result has the expected structure
             const importData = result?.data || result;
             const successCount = importData?.successCount || importData?.imported || 0;
             const totalCount = importData?.totalRows || importData?.total || 0;
-            const errorCount = importData?.errorCount || importData?.errors || 0;
 
             toast({
                 title: "Success",
                 description: `Imported ${successCount} of ${totalCount} transactions successfully`,
             });
 
-            // Return the import result for the dialog to display
             return {
                 success: true,
                 data: {
                     totalRows: totalCount,
                     successCount: successCount,
-                    errorCount: errorCount,
+                    errorCount: importData?.errorCount || 0,
                     importResults: importData?.importResults || [],
                 }
             };
@@ -297,27 +366,25 @@ const DashboardPage = () => {
             whileHover={{ y: -4 }}
             className="relative overflow-hidden"
         >
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
                 <div className="absolute inset-0 bg-gradient-to-br opacity-5" style={{
                     backgroundImage: `linear-gradient(135deg, ${color} 0%, transparent 100%)`
                 }} />
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
                     <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
-                    <div className={`p-2 rounded-lg bg-opacity-10`} style={{ backgroundColor: color }}>
-                        <Icon className={`h-4 w-4`} style={{ color }} />
+                    <div className={`p-2.5 rounded-lg bg-opacity-10`} style={{ backgroundColor: color }}>
+                        <Icon className={`h-5 w-5`} style={{ color }} />
                     </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                     <div className="text-2xl font-bold">
-                        {typeof value === 'number' ?
-                            `$${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-                            : value}
+                        {typeof value === 'number' ? formatCurrency(value) : value}
                     </div>
                     {subtitle && (
-                        <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
+                        <p className="text-xs text-muted-foreground mt-1.5">{subtitle}</p>
                     )}
                     {trend !== undefined && trend !== 0 && (
-                        <div className={`inline-flex items-center mt-2 px-2 py-1 rounded-full text-xs font-medium ${
+                        <div className={`inline-flex items-center mt-3 px-2.5 py-1 rounded-full text-xs font-medium ${
                             trend > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                         }`}>
                             {trend > 0 ? <ArrowUpRight className="h-3 w-3 mr-1" /> : <ArrowDownRight className="h-3 w-3 mr-1" />}
@@ -426,7 +493,30 @@ const DashboardPage = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
+                    {/* Currency Selector */}
+                    <Select value={selectedCurrency} onValueChange={handleCurrencyChange}>
+                        <SelectTrigger className="w-[140px]">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="USD">
+                                <div className="flex items-center gap-2">
+                                    <span>🇺🇸</span>
+                                    <span>USD</span>
+                                </div>
+                            </SelectItem>
+                            {currencies.filter(c => c.code !== 'USD').map(currency => (
+                                <SelectItem key={currency.code} value={currency.code}>
+                                    <div className="flex items-center gap-2">
+                                        <span>{currency.flag}</span>
+                                        <span>{currency.code}</span>
+                                    </div>
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+
                     <Button
                         variant="outline"
                         size="sm"
@@ -469,11 +559,11 @@ const DashboardPage = () => {
                 </div>
                 <div className="flex-1">
                     <TopBar />
-                    <div className="p-6 space-y-6">
-                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    <div className="p-8 space-y-8">
+                        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                             {[1, 2, 3, 4].map((i) => (
                                 <Card key={i}>
-                                    <CardHeader>
+                                    <CardHeader className="pb-3">
                                         <Skeleton className="h-4 w-24" />
                                     </CardHeader>
                                     <CardContent>
@@ -503,7 +593,7 @@ const DashboardPage = () => {
             <div className="flex-1 lg:ml-64">
                 <TopBar />
 
-                <div className="p-6 space-y-6 max-w-7xl mx-auto">
+                <div className="p-8 space-y-8 max-w-7xl mx-auto">
                     {/* Welcome Section */}
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                         <div>
@@ -525,7 +615,7 @@ const DashboardPage = () => {
                     </div>
 
                     {/* Stats Cards */}
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                         <StatCard
                             title="Total Balance"
                             value={dashboardData.totalBalance}
@@ -560,27 +650,65 @@ const DashboardPage = () => {
 
                     {/* Budget Progress Card */}
                     <Card className="border-0 shadow-lg">
-                        <CardHeader>
+                        <CardHeader className="pb-4">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <CardTitle>Monthly Budget</CardTitle>
                                     <CardDescription>Track your spending against your budget</CardDescription>
                                 </div>
-                                <Target className="h-5 w-5 text-muted-foreground" />
+                                <div className="flex items-center gap-2">
+                                    <Target className="h-5 w-5 text-muted-foreground" />
+                                    {!isEditingBudget ? (
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={() => {
+                                                setIsEditingBudget(true);
+                                                setBudgetInput(monthlyBudget.toString());
+                                            }}
+                                        >
+                                            <Edit2 className="h-4 w-4" />
+                                        </Button>
+                                    ) : (
+                                        <div className="flex items-center gap-2">
+                                            <Input
+                                                type="number"
+                                                value={budgetInput}
+                                                onChange={(e) => setBudgetInput(e.target.value)}
+                                                className="w-32 h-8"
+                                                placeholder="Budget"
+                                            />
+                                            <Button
+                                                size="sm"
+                                                variant="ghost"
+                                                onClick={handleBudgetSave}
+                                            >
+                                                <Check className="h-4 w-4 text-green-600" />
+                                            </Button>
+                                            <Button
+                                                size="sm"
+                                                variant="ghost"
+                                                onClick={() => setIsEditingBudget(false)}
+                                            >
+                                                <X className="h-4 w-4 text-red-600" />
+                                            </Button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </CardHeader>
-                        <CardContent>
-                            <div className="space-y-2">
+                        <CardContent className="pt-0">
+                            <div className="space-y-3">
                                 <div className="flex justify-between text-sm">
                                     <span>Spent</span>
                                     <span className="font-medium">
-                                        ${dashboardData.totalExpenses.toLocaleString()} / ${dashboardData.monthlyBudget.toLocaleString()}
+                                        {formatCurrency(dashboardData.totalExpenses)} / {formatCurrency(monthlyBudget)}
                                     </span>
                                 </div>
                                 <Progress value={dashboardData.budgetUsed} className="h-3" />
                                 {dashboardData.budgetUsed > 80 && (
-                                    <div className="flex items-center gap-2 text-amber-600 text-sm mt-2">
-                                        <AlertCircle className="h-4 w-4" />
+                                    <div className="flex items-center gap-2 text-amber-600 text-sm mt-3 p-3 bg-amber-50 rounded-lg">
+                                        <AlertCircle className="h-4 w-4 flex-shrink-0" />
                                         <span>You've used {dashboardData.budgetUsed.toFixed(0)}% of your monthly budget</span>
                                     </div>
                                 )}
@@ -589,43 +717,55 @@ const DashboardPage = () => {
                     </Card>
 
                     {/* Charts Section */}
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-7">
                         <Card className="col-span-4 border-0 shadow-lg">
-                            <CardHeader>
+                            <CardHeader className="pb-4">
                                 <CardTitle>Spending Trends</CardTitle>
                                 <CardDescription>Income vs Expenses over time</CardDescription>
                             </CardHeader>
-                            <CardContent className="h-[350px]">
-                                <ExpenseChart data={dashboardData.monthlyTrend} />
+                            <CardContent className="h-[400px] pt-4">
+                                <ExpenseChart
+                                    data={dashboardData.monthlyTrend}
+                                    currency={selectedCurrency}
+                                    formatCurrency={formatCurrency}
+                                />
                             </CardContent>
                         </Card>
 
                         <Card className="col-span-3 border-0 shadow-lg">
-                            <CardHeader>
+                            <CardHeader className="pb-4">
                                 <CardTitle>Category Breakdown</CardTitle>
                                 <CardDescription>Where your money goes</CardDescription>
                             </CardHeader>
-                            <CardContent className="h-[350px]">
-                                <ExpenseChart data={dashboardData.categoryBreakdown} type="pie" />
+                            <CardContent className="h-[400px] pt-4">
+                                <ExpenseChart
+                                    data={dashboardData.categoryBreakdown}
+                                    type="pie"
+                                    currency={selectedCurrency}
+                                    formatCurrency={formatCurrency}
+                                />
                             </CardContent>
                         </Card>
                     </div>
 
                     {/* Recent Transactions */}
                     <Card className="border-0 shadow-lg">
-                        <CardHeader>
+                        <CardHeader className="pb-4">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <CardTitle>Recent Transactions</CardTitle>
                                     <CardDescription>Your latest financial activities</CardDescription>
                                 </div>
-                                <Badge variant="secondary">
+                                <Badge variant="secondary" className="px-3 py-1">
                                     {dashboardData.recentTransactions.length} transactions
                                 </Badge>
                             </div>
                         </CardHeader>
-                        <CardContent>
-                            <RecentTransactions transactions={dashboardData.recentTransactions} />
+                        <CardContent className="pt-0">
+                            <RecentTransactions
+                                transactions={dashboardData.recentTransactions}
+                                formatCurrency={formatCurrency}
+                            />
                         </CardContent>
                     </Card>
 
@@ -634,6 +774,8 @@ const DashboardPage = () => {
                         onClose={() => setShowAddExpense(false)}
                         onSubmit={handleAddTransaction}
                         categories={categories}
+                        selectedCurrency={selectedCurrency}
+                        exchangeRates={exchangeRates}
                     />
 
                     <ImportExcelDialog

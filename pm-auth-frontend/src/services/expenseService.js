@@ -71,16 +71,19 @@ export const expenseService = {
         }
     },
 
-    // Create new transaction
+    // Create new transaction - FIXED: Removed metadata field
     createTransaction: async (transactionData) => {
         try {
-            const response = await api.post('/transactions', {
+            // Only send the fields that backend expects
+            const payload = {
                 categoryId: parseInt(transactionData.categoryId),
-                amount: parseFloat(transactionData.amount),
-                type: transactionData.type,
+                amount: parseFloat(transactionData.amount), // This will be in USD (already converted)
+                type: transactionData.type.toUpperCase(), // Ensure uppercase
                 description: transactionData.description,
                 transactionDate: transactionData.transactionDate
-            });
+            };
+
+            const response = await api.post('/transactions', payload);
             return response.data.data;
         } catch (error) {
             console.error('Error creating transaction:', error);

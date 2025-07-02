@@ -19,6 +19,7 @@ public class DashboardController {
 
     private final DashboardService dashboardService;
 
+    // Endpoint to get the dashboard data for the authenticated user
     @GetMapping
     public ResponseEntity<ApiResponse<DashboardResponseDto>> getDashboard(
             @CurrentUser Long userId,

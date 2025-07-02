@@ -26,6 +26,7 @@ public class FileController {
     private final ExcelImportService excelImportService;
     private final ExcelExportService excelExportService;
 
+    // Endpoint to import an Excel file
     @PostMapping("/import")
     public ResponseEntity<ApiResponse<ImportResultDto>> importExcel(
             @CurrentUser Long userId,
@@ -48,6 +49,7 @@ public class FileController {
         return ResponseEntity.ok(ApiResponse.success("File imported successfully", result));
     }
 
+    // Endpoint to export an Excel file
     @GetMapping("/export")
     public ResponseEntity<byte[]> exportExcel(
             @CurrentUser Long userId,
@@ -79,6 +81,7 @@ public class FileController {
         }
     }
 
+    // Endpoint to download the Excel template for importing expenses
     @GetMapping("/template")
     public ResponseEntity<byte[]> downloadTemplate() {
         log.info("Downloading Excel template");

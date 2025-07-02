@@ -29,6 +29,13 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
+    /**
+     * Create a new transaction.
+     *
+     * @param userId the ID of the authenticated user
+     * @param dto    the details of the transaction to create
+     * @return the created transaction
+     */
     @PostMapping
     public ResponseEntity<ApiResponse<TransactionResponseDto>> createTransaction(
             @CurrentUser Long userId,
@@ -40,6 +47,7 @@ public class TransactionController {
                 .body(ApiResponse.success("Transaction created successfully", response));
     }
 
+    // Endpoint to get transactions for the authenticated user
     @GetMapping
     public ResponseEntity<ApiResponse<Page<TransactionResponseDto>>> getTransactions(
             @CurrentUser Long userId,
@@ -65,6 +73,7 @@ public class TransactionController {
         return ResponseEntity.ok(ApiResponse.success("Transaction retrieved successfully", transaction));
     }
 
+    // Endpoint to update a transaction
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<TransactionResponseDto>> updateTransaction(
             @CurrentUser Long userId,
@@ -76,6 +85,7 @@ public class TransactionController {
         return ResponseEntity.ok(ApiResponse.success("Transaction updated successfully", updated));
     }
 
+    // Endpoint to delete a transaction
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteTransaction(
             @CurrentUser Long userId,
