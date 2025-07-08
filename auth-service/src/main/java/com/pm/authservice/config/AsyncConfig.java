@@ -13,6 +13,7 @@ import java.util.concurrent.Executor;
 @EnableAsync
 public class AsyncConfig {
 
+    // This configuration class sets up asynchronous task execution with different thread pools
     @Bean("emailTaskExecutor")
     public Executor emailTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -27,6 +28,7 @@ public class AsyncConfig {
         return executor;
     }
 
+    // This executor can be used for general async tasks that require more resources
     @Bean("taskExecutor")
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

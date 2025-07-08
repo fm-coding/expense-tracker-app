@@ -1,5 +1,7 @@
 package com.pm.authservice.service;
 
+import com.pm.authservice.dto.request.ChangePasswordDto;
+import com.pm.authservice.dto.request.UpdateUserProfileDto;
 import com.pm.authservice.repository.UserRepository;
 import com.pm.authservice.dto.request.LoginRequestDto;
 import com.pm.authservice.dto.request.RegisterRequestDto;
@@ -322,5 +324,70 @@ public class AuthService {
 
         LocalDateTime unlockTime = user.getLockTime().plusMinutes(LOCK_TIME_DURATION);
         return LocalDateTime.now().isBefore(unlockTime);
+    }
+
+    // Add these methods to your existing AuthService class
+
+    @Transactional(readOnly = true)
+    public UserInfoDto getUserProfile(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        return UserInfoDto.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .isEnabled(user.getIsEnabled())
+                .createdAt(user.getCreatedAt())
+                .lastLoginAt(user.getLastLoginAt())
+                .build();
+    }
+
+    @Transactional
+    public UserInfoDto updateUserProfile(Long userId, UpdateUserProfileDto dto) {
+        log.info("Updating profile for user ID: {}", userId);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        user.setFirstName(dto.getFirstName().trim());
+        user.setLastName(dto.getLastName().trim());
+        user.setUpdatedAt(LocalDateTime.now());
+
+        User updatedUser = userRepository.save(user);
+
+        log.info("Profile updated successfully for user: {}", updatedUser.getEmail());
+
+        return UserInfoDto.builder()
+                .id(updatedUser.getId())
+                .firstName(updatedUser.getFirstName())
+                .lastName(updatedUser.getLastName())
+                .email(updatedUser.getEmail())
+                .isEnabled(updatedUser.getIsEnabled())
+                .createdAt(updatedUser.getCreatedAt())
+                .lastLoginAt(updatedUser.getLastLoginAt())
+                .build();
+    }
+
+    @Transactional
+    public void changePassword(Long userId, ChangePasswordDto dto) {
+        log.info("Changing password for user ID: {}", userId);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        // Verify current password
+        if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Current password is incorrect");
+        }
+
+        // Update password
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        user.setUpdatedAt(LocalDateTime.now());
+
+        userRepository.save(user);
+
+        log.info("Password changed successfully for user: {}", user.getEmail());
     }
 }

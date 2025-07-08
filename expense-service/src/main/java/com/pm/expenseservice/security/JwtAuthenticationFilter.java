@@ -75,7 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             this.email = email;
         }
 
-        // IMPORTANT: These getters must be public for Spring Security to access them
+        // These getters must be public for Spring Security to access them
         public Long getUserId() {
             return userId;
         }

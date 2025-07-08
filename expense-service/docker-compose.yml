@@ -1,7 +1,6 @@
 version: '3.9'
 
 services:
-  # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
     container_name: pm-postgres
@@ -9,6 +8,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 4422
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:
@@ -22,7 +22,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # Auth Service
   auth-service:
     build: ./auth-service
     container_name: pm-auth-service
@@ -47,7 +46,6 @@ services:
     networks:
       - pm-network
 
-  # Expense Service
   expense-service:
     build: ./expense-service
     container_name: pm-expense-service

@@ -1,19 +1,21 @@
 package com.pm.authservice.controller;
 
-import com.pm.authservice.dto.request.LoginRequestDto;
-import com.pm.authservice.dto.request.RegisterRequestDto;
-import com.pm.authservice.dto.request.ResetPasswordRequestDto;
-import com.pm.authservice.dto.request.ForgotPasswordRequestDto;
+import com.pm.authservice.dto.request.*;
 import com.pm.authservice.dto.response.ApiResponseDto;
 import com.pm.authservice.dto.response.AuthResponseDto;
+import com.pm.authservice.dto.response.UserInfoDto;
+import com.pm.authservice.security.UserPrincipal;
 import com.pm.authservice.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -399,5 +401,89 @@ public class AuthController {
                 .success(true)
                 .message("Auth service is running")
                 .build());
+    }
+
+    /**
+     * Get current authenticated user's profile
+     */
+    @GetMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponseDto> getCurrentUserProfile(Authentication authentication) {
+        try {
+            UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+            UserInfoDto userInfo = authService.getUserProfile(userPrincipal.getId());
+
+            return ResponseEntity.ok(ApiResponseDto.builder()
+                    .success(true)
+                    .message("Profile retrieved successfully")
+                    .data(userInfo)
+                    .build());
+        } catch (Exception e) {
+            log.error("Error getting user profile: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponseDto.builder()
+                            .success(false)
+                            .message("Failed to retrieve profile: " + e.getMessage())
+                            .build());
+        }
+    }
+
+    /**
+     * Update authenticated user's profile
+     */
+    @PutMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponseDto> updateProfile(
+            Authentication authentication,
+            @Valid @RequestBody UpdateUserProfileDto dto) {
+        try {
+            UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+            UserInfoDto updatedUser = authService.updateUserProfile(userPrincipal.getId(), dto);
+
+            return ResponseEntity.ok(ApiResponseDto.builder()
+                    .success(true)
+                    .message("Profile updated successfully")
+                    .data(updatedUser)
+                    .build());
+        } catch (Exception e) {
+            log.error("Error updating profile: {}", e.getMessage());
+            return ResponseEntity.badRequest()
+                    .body(ApiResponseDto.builder()
+                            .success(false)
+                            .message("Failed to update profile: " + e.getMessage())
+                            .build());
+        }
+    }
+
+    /**
+     * Change authenticated user's password
+     */
+    @PutMapping("/change-password")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponseDto> changePassword(
+            Authentication authentication,
+            @Valid @RequestBody ChangePasswordDto dto) {
+        try {
+            UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+            authService.changePassword(userPrincipal.getId(), dto);
+
+            return ResponseEntity.ok(ApiResponseDto.builder()
+                    .success(true)
+                    .message("Password changed successfully")
+                    .build());
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ApiResponseDto.builder()
+                            .success(false)
+                            .message("Current password is incorrect")
+                            .build());
+        } catch (Exception e) {
+            log.error("Error changing password: {}", e.getMessage());
+            return ResponseEntity.badRequest()
+                    .body(ApiResponseDto.builder()
+                            .success(false)
+                            .message("Failed to change password: " + e.getMessage())
+                            .build());
+        }
     }
 }

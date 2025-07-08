@@ -34,6 +34,7 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
@@ -86,6 +87,9 @@ public class SecurityConfig {
                                         "/actuator/info",
                                         "/actuator/**"
                                 ).permitAll()
+                                .requestMatchers("/api/v1/auth/profile",
+                                        "/api/v1/auth/change-password"
+                                ).authenticated()
                                 .anyRequest().authenticated()
                 );
 
